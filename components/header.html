@@ -1,8 +1,9 @@
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="../css/header.css">
 
 <header>
     <div class="header">
-        <div class="logo">オセロゲーム</div>
+        <div class="logo">Othello</div>
         <nav>
             <ul>
                 <li><a href="../index.html" target="_top">ホーム</a></li>
@@ -12,10 +13,10 @@
                 <li><a href="../developer.html" target="_top">開発者紹介</a></li>
             </ul>
         </nav>
-        <div>
+        <div class="auth-section">
             <div id="user-section" style="display: none;">
                 <span id="user-email"></span>
-                <button id="logout-btn" onclick="handleLogout()" style="display: none;">ログアウト</button>
+                <button id="logout-btn" onclick="handleLogout()">ログアウト</button>
             </div>
             <button id="login-btn" onclick="goToLogin()">ログイン</button>
         </div>
@@ -32,6 +33,6 @@
 
     // ログインページに移動
     function goToLogin() {
-        window.parent.location.href = '../auth/login.html';
+        window.parent.location.href = '../login.html';
     }
 </script>
