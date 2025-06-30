@@ -1,0 +1,16 @@
+# Auth0設定ファイル
+.env
+.env.local
+.env.development
+.env.production
+
+# IDE設定ファイル
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS生成ファイル
+.DS_Store
+.DS_Store?
