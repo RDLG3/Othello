@@ -1,16 +1,22 @@
 body {
-    background-color: #444444;
+    background-color: #FFFFFF;
 }
 
 table {
+    background-color: #008800;
     width: 400px;
     height: 400px;
     border-collapse: collapse;
-    margin: auto;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 td {
-    background-color: #008800;
+    width: 12.5%;
+    height: 12.5%;
+    border-radius: 100%;
+    border: 2px solid #555555;
+    
 }
 
 .w {
