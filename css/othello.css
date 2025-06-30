@@ -2,16 +2,20 @@ body {
     background-color: #FFFFFF;
 }
 
-table {
+#contents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#othello {
     background-color: #008800;
     width: 400px;
     height: 400px;
     border-collapse: collapse;
-    margin-right: auto;
-    margin-left: auto;
 }
 
-td {
+#othello tr td {
     width: 12.5%;
     height: 12.5%;
     border-radius: 100%;
@@ -24,4 +28,14 @@ td {
 }
 .b {
     background-color: #000000;
+}
+
+#turn td {
+    text-align: center;
+}
+#score td{
+    text-align: center;
+}
+#restart td {
+    text-align: center;
 }
