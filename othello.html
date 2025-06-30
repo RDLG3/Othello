@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Play Othello</title>
+        <script src="js/othello.js"></script>
+        <link href="css/othello.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- ヘッダー読み込み -->
+        <object data="components/header.html" type="text/html"></object>
+
+        <main>
+            <h1>Othello</h1>
+            <div id="contents">
+                <table id="othello">
+                    <tr> <td onClick="selectCell(0,0);"></td><td onClick="selectCell(0,1);"></td><td onClick="selectCell(0,2);"></td><td onClick="selectCell(0,3);"></td><td onClick="selectCell(0,4);"></td><td onClick="selectCell(0,5);"></td><td onClick="selectCell(0,6);"></td><td onClick="selectCell(0,7);"></td> </tr>
+                    <tr> <td onClick="selectCell(1,0);"></td><td onClick="selectCell(1,1);"></td><td onClick="selectCell(1,2);"></td><td onClick="selectCell(1,3);"></td><td onClick="selectCell(1,4);"></td><td onClick="selectCell(1,5);"></td><td onClick="selectCell(1,6);"></td><td onClick="selectCell(1,7);"></td> </tr>
+                    <tr> <td onClick="selectCell(2,0);"></td><td onClick="selectCell(2,1);"></td><td onClick="selectCell(2,2);"></td><td onClick="selectCell(2,3);"></td><td onClick="selectCell(2,4);"></td><td onClick="selectCell(2,5);"></td><td onClick="selectCell(2,6);"></td><td onClick="selectCell(2,7);"></td> </tr>
+                    <tr> <td onClick="selectCell(3,0);"></td><td onClick="selectCell(3,1);"></td><td onClick="selectCell(3,2);"></td><td onClick="selectCell(3,3);" class="w"></td><td onClick="selectCell(3,4);" class="b"></td><td onClick="selectCell(3,5);"></td><td onClick="selectCell(3,6);"></td><td onClick="selectCell(3,7);"></td> </tr>
+                    <tr> <td onClick="selectCell(4,0);"></td><td onClick="selectCell(4,1);"></td><td onClick="selectCell(4,2);"></td><td onClick="selectCell(4,3);" class="b"></td><td onClick="selectCell(4,4);" class="w"></td><td onClick="selectCell(4,5);"></td><td onClick="selectCell(4,6);"></td><td onClick="selectCell(4,7);"></td> </tr>
+                    <tr> <td onClick="selectCell(5,0);"></td><td onClick="selectCell(5,1);"></td><td onClick="selectCell(5,2);"></td><td onClick="selectCell(5,3);"></td><td onClick="selectCell(5,4);"></td><td onClick="selectCell(5,5);"></td><td onClick="selectCell(5,6);"></td><td onClick="selectCell(5,7);"></td> </tr>
+                    <tr> <td onClick="selectCell(6,0);"></td><td onClick="selectCell(6,1);"></td><td onClick="selectCell(6,2);"></td><td onClick="selectCell(6,3);"></td><td onClick="selectCell(6,4);"></td><td onClick="selectCell(6,5);"></td><td onClick="selectCell(6,6);"></td><td onClick="selectCell(6,7);"></td> </tr>
+                    <tr> <td onClick="selectCell(7,0);"></td><td onClick="selectCell(7,1);"></td><td onClick="selectCell(7,2);"></td><td onClick="selectCell(7,3);"></td><td onClick="selectCell(7,4);"></td><td onClick="selectCell(7,5);"></td><td onClick="selectCell(7,6);"></td><td onClick="selectCell(7,7);"></td> </tr>
+                </table>
+
+                <table border="1" id="option">
+                    <tr id="turn">
+                        <td colspan="2">白のターン</td>
+                    </tr>
+                    <tr id="score">
+                        <td>2</td>
+                        <td>2</td>
+                    </tr>
+                    <tr id="restart">
+                        <td colspan="2"><button type="button" onClick="restart();">新しいゲームを開始する</button></td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+        
+        
+        <!-- フッター読み込み -->
+        <object data="components/footer.html" type="text/html"></object>
+    </body>
+</html>
