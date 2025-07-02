@@ -80,13 +80,13 @@
             const password = document.getElementById('login-password').value;
 
             if (!email || !password) {
-                authManager.showMessage('メールアドレスとパスワードを入力してください', 'error');
+                showMessage('メールアドレスとパスワードを入力してください');
                 return;
             }
 
-            const result = await authManager.signIn(email, password);
-            if (result.success) {
-                // ログイン成功時はメインページにリダイレクト（メッセージはauth.jsで表示）
+            const success = await signIn(email, password);
+            if (success) {
+                // ログイン成功時はメインページにリダイレクト
                 setTimeout(() => {
                     window.location.href = '../index.html';
                 }, 500);
@@ -100,21 +100,21 @@
             const confirmPassword = document.getElementById('signup-confirm-password').value;
 
             if (!email || !password || !confirmPassword) {
-                authManager.showMessage('すべての項目を入力してください', 'error');
+                showMessage('すべての項目を入力してください');
                 return;
             }
 
             if (password !== confirmPassword) {
-                authManager.showMessage('パスワードが一致しません', 'error');
+                showMessage('パスワードが一致しません');
                 return;
             }
 
             if (password.length < 6) {
-                authManager.showMessage('パスワードは6文字以上で入力してください', 'error');
+                showMessage('パスワードは6文字以上で入力してください');
                 return;
             }
 
-            await authManager.signUp(email, password);
+            await signUp(email, password);
         }
 
         // パスワードリセット表示
@@ -136,12 +136,12 @@
             const email = document.getElementById('reset-email').value;
 
             if (!email) {
-                authManager.showMessage('メールアドレスを入力してください', 'error');
+                showMessage('メールアドレスを入力してください');
                 return;
             }
 
-            const result = await authManager.resetPassword(email);
-            if (result.success) {
+            const success = await resetPassword(email);
+            if (success) {
                 hidePasswordReset();
             }
         }
@@ -151,7 +151,7 @@
             // 既にログインしている場合はリダイレクト
             const { data: { session } } = await supabase.auth.getSession();
             if (session) {
-                window.location.href = 'index.html';
+                window.location.href = '../index.html';
             }
         });
     </script>
