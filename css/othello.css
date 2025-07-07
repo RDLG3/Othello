@@ -30,7 +30,7 @@ body {
     background-color: #000000;
 }
 
-#turn td {
+#turn{
     text-align: center;
 }
 #score td{
