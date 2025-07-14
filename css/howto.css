@@ -1,0 +1,137 @@
+/* Howto Page - Light Modern Styles */
+
+/* ベーススタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ヒーローセクション */
+.hero {
+    text-align: center;
+    background: #ffffff;
+    color: #2c3e50;
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #5a6c7d;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* セクションスタイル */
+.section {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.section p {
+    font-size: 1rem;
+    color: #5a6c7d;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+/* リストスタイル */
+.section ol {
+    color: #5a6c7d;
+    padding-left: 1.5rem;
+}
+
+.section ol li {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+}
+
+.section ul {
+    color: #5a6c7d;
+    padding-left: 1.5rem;
+}
+
+.section ul li {
+    margin-bottom: 0.6rem;
+    line-height: 1.7;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+    
+    .hero {
+        padding: 3rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .section {
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .section {
+        padding: 1.5rem;
+    }
+    
+    .section h2 {
+        font-size: 1.3rem;
+    }
+    
+    .section p {
+        font-size: 0.95rem;
+    }
+}
