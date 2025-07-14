@@ -13,12 +13,17 @@ body {
     color: #333;
     background: #f8f9fa;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 main {
     max-width: 1000px;
     margin: 0 auto;
     padding: 2rem;
+    flex: 1;
 }
 
 /* ヒーローセクション */
@@ -108,6 +113,14 @@ main {
     color: #5a6c7d;
     line-height: 1.6;
     margin: 0;
+}
+
+/* object要素のスタイル調整 */
+object {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
 /* レスポンシブデザイン */
