@@ -8,7 +8,7 @@ window.onload = function() {
 };
 
 function selectCell(row,col) {  //マスを選択
-    if (cells[row][col].className !== "") {
+    if (cells[row][col].className !== "" && cells[row][col].className !== "placeable") {
         return; // すでに石が置かれている場合は何もしない
     }
     
@@ -16,6 +16,9 @@ function selectCell(row,col) {  //マスを選択
         return; // 置けない場合は何もしない（アラートは表示しない）
     }
 
+    // placeableクラスをクリア
+    clearPlaceableCells();
+    
     putStone(row, col);
     flipStones(row, col);
     updateScore();
@@ -35,7 +38,7 @@ function getCurrentPlayerClass() {
 }
 
 function isValidMove(row, col) {
-    if (cells[row][col].className !== "") {
+    if (cells[row][col].className !== "" && cells[row][col].className !== "placeable") {
         return false; // すでに石がある
     }
     
@@ -196,7 +199,11 @@ function switchTurn(){
         
         setTimeout(function() {
             showTurn();
+            showPlaceableCells(); // パス後に配置可能マスを表示
         }, 2000);
+    } else {
+        // 配置可能なマスを表示
+        showPlaceableCells();
     }
     
     updateScore();
@@ -217,6 +224,9 @@ function switchTurn(){
 }
 
 function endGame() {
+    // ゲーム終了時はplaceableクラスをクリア
+    clearPlaceableCells();
+    
     var whiteCount = 0;
     var blackCount = 0;
     
@@ -247,5 +257,30 @@ function showTurn() {   //現在のプレイヤーを表示する
         document.getElementById("turn").textContent = "黒のターン";
     } else {
         document.getElementById("turn").textContent = "白のターン";
+    }
+}
+
+function showPlaceableCells() {
+    // まず全てのplaceableクラスをクリア
+    clearPlaceableCells();
+    
+    // 現在のプレイヤーが置けるマスを取得
+    var validMoves = getValidMoves();
+    
+    // 置けるマスにplaceableクラスを追加
+    for (var i = 0; i < validMoves.length; i++) {
+        var row = validMoves[i][0];
+        var col = validMoves[i][1];
+        cells[row][col].className = "placeable";
+    }
+}
+
+function clearPlaceableCells() {
+    for (var row = 0; row < 8; row++) {
+        for (var col = 0; col < 8; col++) {
+            if (cells[row][col].className === "placeable") {
+                cells[row][col].className = "";
+            }
+        }
     }
 }
