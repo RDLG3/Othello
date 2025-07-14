@@ -29,6 +29,9 @@ body {
 .b {
     background-color: #000000;
 }
+.placeable {
+    background-color: #999999AA;
+}
 
 #turn{
     text-align: center;

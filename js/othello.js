@@ -1,212 +1,144 @@
 var cells; //盤上の石
-var count = 0; //経過ターン数
+var count = -1; //経過ターン数
+var directions = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]; //8方向
 
 window.onload = function() {
     loadTable();
-    showTurn();
+    resetGame();
 };
 
 function selectCell(row,col) {  //マスを選択
-    if (putStone(row,col) == false) {   //選択したマスが置けるかどうか
-        alert("ここには置けません");
-        return;
+    if (cells[row][col].className !== "") {
+        return; // すでに石が置かれている場合は何もしない
+    }
+    
+    if (!isValidMove(row, col)) {
+        return; // 置けない場合は何もしない（アラートは表示しない）
     }
 
-    count++;
-
-    showTurn();
+    putStone(row, col);
+    flipStones(row, col);
+    updateScore();
+    
+    setTimeout(function() {
+        switchTurn();
+    }, 100);
 }
 
-function putStone(row,col){
-    if (cells[row][col].className != "")
-        return false;
-    
-    var totalCount = 0;
-    var getCount, myStone, yourStone;
+function putStone(row, col) {
+    var currentPlayer = getCurrentPlayerClass();
+    cells[row][col].className = currentPlayer;
+}
 
-    if (count % 2 == 0) {
-        myStone = "w";
-        yourStone = "b";
-    } else {
-        myStone = "b";
-        yourStone = "w";
+function getCurrentPlayerClass() {
+    return count % 2 == 0 ? "w" : "b";
+}
+
+function isValidMove(row, col) {
+    if (cells[row][col].className !== "") {
+        return false; // すでに石がある
     }
     
-    if (row != 0) {   //上方向
-        getCount = 0;
-        for (var y = row - 1; y >= 0; y--) {
-            if (cells[y][col].className == yourStone) {
-                getCount++;
-            } else if (cells[y][col].className == myStone) {
-                if (getCount > 0) {
-                for (var yy = row - 1; yy >= row - getCount; yy--) {
-                cells[yy][col].className = myStone;
-                }
-                totalCount += getCount;
-                }
-                break;
-            } else {
-            break;
-            }
+    var currentPlayer = getCurrentPlayerClass();
+    
+    for (var d = 0; d < directions.length; d++) {
+        var dr = directions[d][0];
+        var dc = directions[d][1];
+        
+        if (checkDirection(row, col, dr, dc, currentPlayer)) {
+            return true;
         }
     }
+    
+    return false;
+}
 
-    if (row != 0 && col != 7) {   //右上方向
-        getCount = 0;
-        var x = col;
-        for (var y = row - 1; y >= 0; y--) {
-            x++;
-            if (cells[y][x].className == yourStone) {
-                getCount++;
-            } else if (cells[y][x].className == myStone) {
-                if (getCount > 0) {
-                    var xx = col;
-                    for (var yy = row - 1; yy >= row - getCount; yy--) {
-                        xx ++;
-                        cells[yy][xx].className = myStone;
-                    }
-                    totalCount += getCount;
-                }
-                break;
-            } else {
-                break;
-            }
-        }
-    }
-
-    if (col != 7) {   //右方向
-        getCount = 0;
-        for (var x = col + 1; x <= 7; x++) {
-            if (cells[row][x].className == yourStone) {
-                getCount++;
-            } else if (cells[row][x].className == myStone) {
-                if (getCount > 0) {
-                    for (var xx = col + 1; xx <= col + getCount; xx++) {
-                        cells[row][xx].className = myStone;
-                    }
-                    totalCount += getCount;
-                }
-                break;
-            } else {
-                break;
-            }
-        }
-    }
-
-    if (row != 7 && col != 7) {   //右下方向
-        getCount = 0;
-        var x = col;
-        for(var y = row + 1; y <= 7; y++){
-            x++;
-            if (cells[y][x].className == yourStone) {
-                getCount++;
-            } else if (cells[y][x].className == myStone) {
-                if (getCount > 0) {
-                    var xx = col;
-                    for (var yy = row + 1; yy <= row + getCount; yy++) {
-                        xx ++;
-                        cells[yy][xx].className = myStone;
-                    }
-                    totalCount += getCount;
-                }
-                break;
-            } else {
-                break;
-            }
-        }
-    }
-
-    if (row != 7) {   //下方向
-        getCount = 0;
-        for (var y = row + 1; y <= 7; y++) {
-            if (cells[y][col].className == yourStone) {
-                getCount++;
-            } else if (cells[y][col].className == myStone) {
-                if (getCount > 0) {
-                    for (var yy = row + 1; yy <= row + getCount; yy++) {
-                        cells[yy][col].className = myStone;
-                    }
-                    totalCount += getCount;
-                }
-                break;
-            } else {
-                break;
-            }
-        }
-    }
-
-    if (row != 7 && col !=0) {    //左下方向
-        getCount = 0;
-        var x = col;
-        for (var y = row + 1; y <= 7; y++) {
-            x--;
-            if (cells[y][x].className == yourStone) {
-                getCount++;
-            } else if (cells[y][x].className == myStone) {
-                if (getCount > 0) {
-                    var xx = col;
-                    for (var yy = row + 1; yy <= row + getCount; yy++) {
-                        xx --;
-                        cells[yy][xx].className = myStone;
-                    }
-                    totalCount += getCount;
-                }
-                break;
-            } else {
-                break;
-            }
-        }
-    }
-
-    if (col != 0) {   //左方向
-        getCount = 0;
-        for (var x = col - 1; x >= 0; x--) {
-        if (cells[row][x].className == yourStone) {
-            getCount++;
-        } else if (cells[row][x].className == myStone) {
-            if (getCount > 0) {
-            for (var xx = col - 1; xx >= col - getCount; xx--) {
-                cells[row][xx].className = myStone;
-            }
-            totalCount += getCount;
-            }
-            break;
+function checkDirection(row, col, dr, dc, player) {
+    var r = row + dr;
+    var c = col + dc;
+    var foundOpponent = false;
+    
+    while (r >= 0 && r < 8 && c >= 0 && c < 8) {
+        var cellClass = cells[r][c].className;
+        
+        if (cellClass === "") {
+            return false; // 空のマス
+        } else if (cellClass === player) {
+            return foundOpponent; // 自分の石が見つかった
         } else {
-            break;
+            foundOpponent = true; // 相手の石が見つかった
         }
+        
+        r += dr;
+        c += dc;
+    }
+    
+    return false;
+}
+
+function flipStones(row, col) {
+    var currentPlayer = getCurrentPlayerClass();
+    
+    for (var d = 0; d < directions.length; d++) {
+        var dr = directions[d][0];
+        var dc = directions[d][1];
+        
+        if (checkDirection(row, col, dr, dc, currentPlayer)) {
+            flipInDirection(row, col, dr, dc, currentPlayer);
         }
     }
+}
 
-    if (row != 0 && col != 0) {   //左上方向
-        getCount = 0;
-        var x = col;
-        for (var y = row - 1; y >= 0; y--) {
-        x--;
-        if (cells[y][x].className == yourStone) {
-            getCount++;
-        } else if (cells[y][x].className == myStone) {
-            if (getCount > 0) {
-            var xx = col;
-            for (var yy = row - 1; yy >= row - getCount; yy--) {
-                xx--;
-                cells[yy][xx].className = myStone;
-            }
-            totalCount += getCount;
-            }
-            break;
+function flipInDirection(row, col, dr, dc, player) {
+    var r = row + dr;
+    var c = col + dc;
+    
+    while (r >= 0 && r < 8 && c >= 0 && c < 8) {
+        var cellClass = cells[r][c].className;
+        
+        if (cellClass === player) {
+            break; // 自分の石に到達
         } else {
-            break;
+            cells[r][c].className = player; // 相手の石を反転
         }
+        
+        r += dr;
+        c += dc;
+    }
+}
+
+function getValidMoves() {
+    var validMoves = [];
+    var currentPlayer = getCurrentPlayerClass();
+    
+    for (var row = 0; row < 8; row++) {
+        for (var col = 0; col < 8; col++) {
+            if (cells[row][col].className === "" && isValidMove(row, col)) {
+                validMoves.push([row, col]);
+            }
         }
     }
+    
+    return validMoves;
+}
 
-    if (totalCount == 0) {  //相手の石を獲得できたか？
-        return false;
+function updateScore() {
+    var whiteCount = 0;
+    var blackCount = 0;
+    
+    for (var row = 0; row < 8; row++) {
+        for (var col = 0; col < 8; col++) {
+            if (cells[row][col].className === "w") {
+                whiteCount++;
+            } else if (cells[row][col].className === "b") {
+                blackCount++;
+            }
+        }
     }
-
-    cells[row][col].className = myStone;    //新しく自分の石を置く
-
-    return true;
+    
+    var scoreCells = document.querySelectorAll("#score td");
+    scoreCells[0].textContent = whiteCount;
+    scoreCells[1].textContent = blackCount;
 }
 
 function resetGame() {  //ゲームをリセットする
@@ -220,9 +152,9 @@ function resetGame() {  //ゲームをリセットする
     cells[4][3].className = "b";
     cells[4][4].className = "w";
 
-    count = 0;
+    count = -1;
 
-    showTurn();
+    switchTurn();
 }
 
 function loadTable(){   //ゲーム盤を読み込む
@@ -236,6 +168,78 @@ function loadTable(){   //ゲーム盤を読み込む
             index++;
         }
     }
+}
+
+function switchTurn(){
+    count++;
+    showTurn();
+    
+    // 現在のプレイヤーが置けるマスがあるかチェック
+    var validMoves = getValidMoves();
+    
+    if (validMoves.length === 0) {
+        // 置けるマスがない場合、相手のターンをチェック
+        count++;  // 相手に変更
+        showTurn();
+        
+        var opponentValidMoves = getValidMoves();
+        
+        if (opponentValidMoves.length === 0) {
+            // 両方のプレイヤーが置けない場合、ゲーム終了
+            endGame();
+            return;
+        }
+        
+        // 相手が置けるマスがある場合は相手のターンを続ける
+        var currentPlayerName = count % 2 == 0 ? "白" : "黒";
+        document.getElementById("turn").textContent = currentPlayerName + "のターン (パスされました)";
+        
+        setTimeout(function() {
+            showTurn();
+        }, 2000);
+    }
+    
+    updateScore();
+    
+    // ゲーム終了チェック（盤面が満杯の場合）
+    var totalStones = 0;
+    for (var row = 0; row < 8; row++) {
+        for (var col = 0; col < 8; col++) {
+            if (cells[row][col].className !== "") {
+                totalStones++;
+            }
+        }
+    }
+    
+    if (totalStones === 64) {
+        endGame();
+    }
+}
+
+function endGame() {
+    var whiteCount = 0;
+    var blackCount = 0;
+    
+    for (var row = 0; row < 8; row++) {
+        for (var col = 0; col < 8; col++) {
+            if (cells[row][col].className === "w") {
+                whiteCount++;
+            } else if (cells[row][col].className === "b") {
+                blackCount++;
+            }
+        }
+    }
+    
+    var result;
+    if (whiteCount > blackCount) {
+        result = "白の勝利！";
+    } else if (blackCount > whiteCount) {
+        result = "黒の勝利！";
+    } else {
+        result = "引き分け！";
+    }
+    
+    document.getElementById("turn").textContent = "ゲーム終了 - " + result;
 }
 
 function showTurn() {   //現在のプレイヤーを表示する
