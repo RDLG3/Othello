@@ -1,0 +1,265 @@
+/* Login Page - Monochrome Modern Simple Styles */
+
+/* ベーススタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #fafafa;
+    min-height: 100vh;
+}
+
+main {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: calc(100vh - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* メインコンテナ */
+main > div {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+/* タイトル */
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* メッセージ表示エリア */
+#auth-message {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+#auth-message.error {
+    background: #fff5f5;
+    border-color: #fed7d7;
+    color: #c53030;
+}
+
+#auth-message.success {
+    background: #f0fff4;
+    border-color: #c6f6d5;
+    color: #2f855a;
+}
+
+/* タブ削除 - フォームリンク */
+.form-links {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.form-links a {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.form-links a:hover {
+    color: #2c3e50;
+    text-decoration: underline;
+}
+
+.form-links span {
+    color: #dee2e6;
+    margin: 0 1rem;
+}
+
+/* フォームコンテナ */
+#login-form,
+#signup-form,
+#reset-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+/* サインアップフォーム内のタイトル */
+#signup-form h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+/* 入力フィールド */
+input[type="email"],
+input[type="password"] {
+    padding: 1rem;
+    font-size: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #495057;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #2c3e50;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #adb5bd;
+}
+
+/* ボタン */
+button[type="button"] {
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* メインボタン */
+button[onclick="handleLogin()"],
+button[onclick="handleSignup()"],
+button[onclick="handlePasswordReset()"] {
+    background: #2c3e50;
+    color: #ffffff;
+    margin-top: 0.5rem;
+}
+
+button[onclick="handleLogin()"]:hover,
+button[onclick="handleSignup()"]:hover,
+button[onclick="handlePasswordReset()"]:hover {
+    background: #34495e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(44, 62, 80, 0.2);
+}
+
+/* セカンダリボタン */
+button[onclick="hidePasswordReset()"] {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+}
+
+button[onclick="hidePasswordReset()"]:hover {
+    background: #e9ecef;
+    color: #495057;
+}
+
+/* パスワードリセットリンク削除 */
+
+/* フォーム表示/非表示 */
+#signup-form[style*="display: none"] {
+    display: none !important;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+    
+    main > div {
+        padding: 2rem;
+    }
+    
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    input[type="email"],
+    input[type="password"],
+    button[type="button"] {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    main > div {
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    input[type="email"],
+    input[type="password"],
+    button[type="button"] {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* アクセシビリティ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* フォーカス管理 */
+input:focus,
+button:focus {
+    outline: 2px solid #2c3e50;
+    outline-offset: 2px;
+}
+
+/* エラー状態 */
+input.error {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* 成功状態 */
+input.success {
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
