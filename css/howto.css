@@ -13,12 +13,23 @@ body {
     color: #333;
     background: #f8f9fa;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 main {
+    flex: 1;
     max-width: 900px;
     margin: 0 auto;
     padding: 2rem;
+}
+
+/* object要素のスタイル調整 */
+object {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
 /* ヒーローセクション */

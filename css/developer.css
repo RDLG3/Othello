@@ -22,6 +22,14 @@ main {
     padding: 2rem;
 }
 
+/* object要素のスタイル調整 */
+object {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
 /* セクションスタイル */
 .section {
     background: #ffffff;
