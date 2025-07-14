@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ログイン - オセロ</title>
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/login.css">
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -12,16 +14,10 @@
 
     <main>
         <div>
-            <h1>ログイン / サインアップ</h1>
+            <h1>ログイン</h1>
             
             <!-- メッセージ表示エリア -->
             <div id="auth-message" style="display: none;"></div>
-
-            <!-- タブ -->
-            <div>
-                <button onclick="switchTab('login')">ログイン</button>
-                <button onclick="switchTab('signup')">サインアップ</button>
-            </div>
 
             <!-- ログインフォーム -->
             <div id="login-form">
@@ -29,49 +25,44 @@
                 <input type="password" id="login-password" placeholder="パスワード" required>
                 <button type="button" onclick="handleLogin()">ログイン</button>
                 
-                <div>
-                    <a onclick="showPasswordReset()">パスワードを忘れた方</a>
+                <div class="form-links">
+                    <a href="reset-password.html">パスワードを忘れた方</a>
+                    <span>|</span>
+                    <a onclick="showSignupForm()">アカウント作成</a>
                 </div>
             </div>
 
             <!-- サインアップフォーム -->
             <div id="signup-form" style="display: none;">
+                <h1>アカウント作成</h1>
                 <input type="email" id="signup-email" placeholder="メールアドレス" required>
                 <input type="password" id="signup-password" placeholder="パスワード（6文字以上）" required>
                 <input type="password" id="signup-confirm-password" placeholder="パスワード確認" required>
-                <button type="button" onclick="handleSignup()">サインアップ</button>
-            </div>
-
-            <!-- パスワードリセットフォーム -->
-            <div id="reset-form" style="display: none;">
-                <h2>パスワードリセット</h2>
-                <input type="email" id="reset-email" placeholder="メールアドレス" required>
-                <button type="button" onclick="handlePasswordReset()">リセットメール送信</button>
-                <button type="button" onclick="hidePasswordReset()">戻る</button>
+                <button type="button" onclick="handleSignup()">アカウント作成</button>
+                
+                <div class="form-links">
+                    <a onclick="showLoginForm()">ログインに戻る</a>
+                </div>
             </div>
         </div>
     </main>
 
     <!-- フッター読み込み -->
-    <iframe src="../components/footer.html" frameborder="0" width="100%" style="height: 60px; border: none;"></iframe>
+    <object data="../components/footer.html" type="text/html" width="100%"></object>
 
     <!-- JavaScript -->
     <script src="../js/supabase-config.js"></script>
     <script src="../js/auth.js"></script>
     <script>
-        // タブ切り替え
-        function switchTab(tab) {
-            const loginForm = document.getElementById('login-form');
-            const signupForm = document.getElementById('signup-form');
-            const tabs = document.querySelectorAll('button');
+        // フォーム切り替え
+        function showSignupForm() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+        }
 
-            if (tab === 'login') {
-                loginForm.style.display = 'block';
-                signupForm.style.display = 'none';
-            } else {
-                loginForm.style.display = 'none';
-                signupForm.style.display = 'block';
-            }
+        function showLoginForm() {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
         }
 
         // ログイン処理
@@ -86,10 +77,7 @@
 
             const success = await signIn(email, password);
             if (success) {
-                // ログイン成功時はメインページにリダイレクト
-                setTimeout(() => {
-                    window.location.href = '../index.html';
-                }, 500);
+                window.location.href = '../index.html';
             }
         }
 
@@ -117,38 +105,8 @@
             await signUp(email, password);
         }
 
-        // パスワードリセット表示
-        function showPasswordReset() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('signup-form').style.display = 'none';
-            document.getElementById('reset-form').style.display = 'block';
-        }
-
-        // パスワードリセット非表示
-        function hidePasswordReset() {
-            document.getElementById('login-form').style.display = 'block';
-            document.getElementById('signup-form').style.display = 'none';
-            document.getElementById('reset-form').style.display = 'none';
-        }
-
-        // パスワードリセット処理
-        async function handlePasswordReset() {
-            const email = document.getElementById('reset-email').value;
-
-            if (!email) {
-                showMessage('メールアドレスを入力してください');
-                return;
-            }
-
-            const success = await resetPassword(email);
-            if (success) {
-                hidePasswordReset();
-            }
-        }
-
         // ページ読み込み時の処理
         document.addEventListener('DOMContentLoaded', async () => {
-            // 既にログインしている場合はリダイレクト
             const { data: { session } } = await supabase.auth.getSession();
             if (session) {
                 window.location.href = '../index.html';
