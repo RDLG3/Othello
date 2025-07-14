@@ -271,7 +271,7 @@ function switchTurn(){
     var totalStones = 0;
     for (var row = 0; row < 8; row++) {
         for (var col = 0; col < 8; col++) {
-            if (cells[row][col].className !== "" && cells[row][col].className !== "placeable") {
+            if (cells[row][col].className === "w" || cells[row][col].className === "b") {
                 totalStones++;
             }
         }
