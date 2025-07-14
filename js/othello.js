@@ -31,7 +31,7 @@ function putStone(row, col) {
 }
 
 function getCurrentPlayerClass() {
-    return count % 2 == 0 ? "w" : "b";
+    return count % 2 == 0 ? "b" : "w";
 }
 
 function isValidMove(row, col) {
@@ -191,7 +191,7 @@ function switchTurn(){
         }
         
         // 相手が置けるマスがある場合は相手のターンを続ける
-        var currentPlayerName = count % 2 == 0 ? "白" : "黒";
+        var currentPlayerName = count % 2 == 0 ? "黒" : "白";
         document.getElementById("turn").textContent = currentPlayerName + "のターン (パスされました)";
         
         setTimeout(function() {
@@ -244,8 +244,8 @@ function endGame() {
 
 function showTurn() {   //現在のプレイヤーを表示する
     if (count % 2 == 0) {
-        document.getElementById("turn").textContent = "白のターン";
-    } else {
         document.getElementById("turn").textContent = "黒のターン";
+    } else {
+        document.getElementById("turn").textContent = "白のターン";
     }
 }
