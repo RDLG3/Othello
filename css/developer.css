@@ -350,6 +350,7 @@ object {
     
     .developer-card {
         padding: 1.5rem;
+        min-width: unset;
     }
     
     .avatar-img {
