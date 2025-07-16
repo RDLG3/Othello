@@ -123,6 +123,12 @@ object {
     .card {
         padding: 1.2rem;
     }
+
+    /* オセロ盤のサイズ調整（スマホ用） */
+    #othello {
+        width: 300px !important;
+        height: 300px !important;
+    }
 }
 
 body {

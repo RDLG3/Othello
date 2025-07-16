@@ -3,6 +3,9 @@
     .nav-text {
         display: none;
     }
+    #user-email {
+        display: none;
+    }
 }
 /* シンプルなダークモダンヘッダー */
 * {
