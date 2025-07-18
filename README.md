@@ -5,6 +5,7 @@
 ## 概要
 
 これは**研究開発リテラシーの最終課題**として開発したWebアプリです．
+このサイトの詳細については以下のdeepwikiをご覧ください．[**deepwikiはこちら**](https://deepwiki.com/RDLG3/Othello)
 
 ## デモ
 
